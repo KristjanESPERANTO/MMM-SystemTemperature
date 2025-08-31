@@ -11,7 +11,7 @@ cd ~/MagicMirror/modules
 
 Clone this repository:
 ````
-git clone https://github.com/MichMich/mmm-systemtemperature.git
+git clone https://github.com/MichMich/MMM-SystemTemperature.git
 ````
 
 Install dependencies:
@@ -27,7 +27,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 ````javascript
 modules: [
 	{
-		module: 'mmm-systemtemperature',
+		module: 'MMM-SystemTemperature',
 		position: 'top_center',	// This can be any of the regions.
 		classes: 'small dimmed', // Add your own styling. Optional.
 		config: {

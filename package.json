@@ -1,12 +1,12 @@
 {
   "name": "mmm-systemtemperature",
   "version": "1.0.0",
-  "description": "A MagicMirror module that displays your processor temperature on you mirror.",
+  "description": "A MagicMirror² module that displays your processor temperature.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MichMich/mmm-systemtemperature"
+    "url": "git+https://github.com/KristjanEsperanto/MMM-SystemTemperature"
   },
-  "main": "mmm-systemtemperature.js",
+  "main": "MMM-SystemTemperature.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,6 +16,10 @@
       "name": "Alvaro Naveda",
       "email": "alvaro@naveda.me",
       "url": "https://github.com/naveda89/"
+    },
+    {
+      "name": "Kristjan ESPERANTO",
+      "url": "https://github.com/KristjanEsperanto/"
     }
   ],
   "license": "MIT",

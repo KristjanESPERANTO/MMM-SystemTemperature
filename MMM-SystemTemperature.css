@@ -1,0 +1,4 @@
+.MMM-SystemTemperature .temperatureUnit::before {
+    content: '°';
+    display: inline;    
+}
