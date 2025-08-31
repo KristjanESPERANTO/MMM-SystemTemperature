@@ -23,5 +23,8 @@
       "url": "https://github.com/KristjanEsperanto/"
     }
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "systeminformation": "^5.27.8"
+  }
 }

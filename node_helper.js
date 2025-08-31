@@ -1,32 +1,63 @@
-var NodeHelper = require("node_helper");
-var exec = require('child_process').exec;
+const systeminformation = require('systeminformation');
+const Log = require("logger");
+const NodeHelper = require("node_helper");
 
 module.exports = NodeHelper.create({
-	start: function() {
-		console.log("Starting node helper: " + this.name);
-	},
+  start () {
+    Log.log(`Starting module helper: ${this.name}`);
+    this.intervalId = null;
+  },
 
-	// Subclass socketNotificationReceived received.
-	socketNotificationReceived: function(notification, payload) {
-		if (notification === 'CONFIG') {
-			this.config = payload;
-			setInterval(() => {
-				this.sendTemperature();
-			}, this.config.updateInterval);
-		}
-	},
+  stop () {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+      Log.log(`${this.name} helper stopped`);
+    }
+  },
 
-	sendTemperature: function() {
-		var command = "cat /sys/class/thermal/thermal_zone*/temp"
+  socketNotificationReceived (notification, payload) {
+    if (notification === "CONFIG") {
+      this.config = payload;
 
-		exec(command, (error, stdout, stderr) => {
-			if (error) {
-				console.log(error);
-				return;
-			}
-			var temperatures = stdout.trim().split('\n').map((t) => parseInt(t));
-			var average = temperatures.reduce((a, b) => a + b, 0) / temperatures.length || 0;
-			this.sendSocketNotification('TEMPERATURE', (average / 1000).toFixed(2));
-		});
-	}
+      // Clear existing interval if any
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+      }
+
+      // Start temperature monitoring
+      this.intervalId = setInterval(() => {
+        this.sendTemperature();
+      }, this.config.updateInterval);
+
+      Log.log(`${this.name}: Temperature monitoring started (interval: ${this.config.updateInterval}ms)`);
+    }
+  },
+
+  async getCPUTemperature() {
+    try {
+      const data = await systeminformation.cpuTemperature();
+
+      // Validate temperature data
+      if (!data || typeof data.main !== 'number' || data.main < -50 || data.main > 150) {
+        Log.warn(`${this.name}: Invalid temperature data received:`, data);
+        return null;
+      }
+
+      return data.main;
+    } catch (error) {
+      Log.error(`${this.name}: Error retrieving CPU temperature:`, error.message);
+      return null;
+    }
+  },
+
+  async sendTemperature() {
+    const temperature = await this.getCPUTemperature();
+
+    if (temperature !== null) {
+      this.sendSocketNotification("TEMPERATURE", temperature);
+    } else {
+      Log.warn(`${this.name}: Skipping temperature update due to invalid data`);
+    }
+  }
 });

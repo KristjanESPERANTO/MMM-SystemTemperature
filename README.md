@@ -1,8 +1,8 @@
 # MMM-SystemTemperature
 
-This MagicMirror² module allows you to show your processor temperature on you mirror.
+This MagicMirror² module displays your system's CPU temperature on your mirror.
 
-It also allows to safely shutdown the Raspberry Pi using [MMM-Remote-Control](https://github.com/Jopyth/MMM-Remote-Control) if you configure it.
+It also allows safe shutdown of your system using [MMM-Remote-Control](https://github.com/Jopyth/MMM-Remote-Control) if you configure it.
 
 ## Screenshot
 
@@ -10,11 +10,23 @@ It also allows to safely shutdown the Raspberry Pi using [MMM-Remote-Control](ht
 
 ## Installation
 
-In your terminal, go to your MagicMirror's modules directory and clone this repository:
+In your terminal, go to your MagicMirror's modules directory, clone this repository and install the dependencies:
 
 ```bash
 cd ~/MagicMirror/modules
 git clone https://github.com/KristjanESPERANTO/MMM-SystemTemperature
+cd MMM-SystemTemperature
+npm ci
+```
+
+## Update
+
+To update this module, pull the latest changes from the repository and reinstall the dependencies:
+
+```bash
+cd ~/MagicMirror/modules/MMM-SystemTemperature
+git pull
+npm ci
 ```
 
 ## Configuration
@@ -67,24 +79,32 @@ The following properties can be configured:
     <tr>
       <td><code>unit</code></td>
       <td>Temperature unit of measurement
-        <br><b>Possible values:</b> <code>c</code> (Celsius), <code>f</code> (fahrenheit), <code>k</code> (Kelvin)
+        <br><b>Possible values:</b> <code>c</code> (Celsius), <code>f</code> (Fahrenheit), <code>k</code> (Kelvin)
         <br><b>Default value:</b> <code>c</code> (Celsius)
       </td>
     </tr>
     <tr>
       <td><code>warning</code></td>
-      <td>Specific config for <code>warning</code> state
+      <td>Specific config for <code>warning</code> state (triggers at or above this temperature)
         <br><b>Possible values:</b> <code>{ temp: 0-999, color: '#HEX', command: Object }</code>
-        <br><b>Default value:</b> <code>{ temp: 60, color: 'orange', command: undefined }</code> 
+        <br><b>Default value:</b> <code>{ temp: 60, color: 'orange', command: undefined }</code>
       </td>
     </tr>
     <tr>
       <td><code>critical</code></td>
-      <td>Specific config for <code>critical</code> state
+      <td>Specific config for <code>critical</code> state (triggers at or above this temperature)
         <br><b>Possible values:</b> <code>{ temp: 0-999, color: '#HEX', command: Object  }</code>
-        <br><b>Default value:</b> <code>{ temp: 75, color: 'red', command: { notification: 'REMOTE_ACTION', payload: { action: 'SHUTDOWN' } } }</code> 
+        <br><b>Default value:</b> <code>{ temp: 75, color: 'red', command: { notification: 'REMOTE_ACTION', payload: { action: 'SHUTDOWN' } } }</code>
         <br><b>NOTE:</b> The <code>REMOTE_ACTION</code> notification (<code>SHUTDOWN</code> and <code>MONITOROFF</code>) actions require the <a href="https://github.com/Jopyth/MMM-Remote-Control">MMM-Remote-Control</a> module to be installed.
       </td>
     </tr>
   </tbody>
 </table>
+
+## License
+
+This project is licensed under the ISC License - see the [LICENSE](LICENSE.md) file for details.
+
+## Changelog
+
+All notable changes to this project will be documented in the [CHANGELOG.md](CHANGELOG.md) file.

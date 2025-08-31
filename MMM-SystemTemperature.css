@@ -1,4 +1,5 @@
+/* stylelint-disable selector-class-pattern */
 .MMM-SystemTemperature .temperatureUnit::before {
-    content: '°';
-    display: inline;    
+  content: "°";
+  display: inline;
 }
