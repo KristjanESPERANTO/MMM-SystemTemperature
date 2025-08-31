@@ -4,6 +4,10 @@ This MagicMirror² module allows you to show your processor temperature on you m
 
 It also allows to safely shutdown the Raspberry Pi using [MMM-Remote-Control](https://github.com/Jopyth/MMM-Remote-Control) if you configure it.
 
+## Screenshot
+
+![MMM-SystemTemperature Screenshot](screenshot.png)
+
 ## Installation
 
 In your terminal, go to your MagicMirror's modules directory and clone this repository:
