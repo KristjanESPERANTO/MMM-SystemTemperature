@@ -2,7 +2,11 @@
   "name": "mmm-systemtemperature",
   "version": "1.0.0",
   "description": "A MagicMirror² module that displays your processor temperature.",
-  "keywords": ["MagicMirror", "temperature", "system"],
+  "keywords": [
+    "MagicMirror",
+    "temperature",
+    "system"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KristjanEsperanto/MMM-SystemTemperature"
@@ -10,7 +14,9 @@
   "main": "MMM-SystemTemperature.js",
   "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint && prettier . --check",
+    "lint:fix": "eslint --fix && prettier . --write",
+    "test": "node --run lint"
   },
   "author": "Michael Teeuw",
   "contributors": [
@@ -27,5 +33,13 @@
   "license": "MIT",
   "dependencies": {
     "systeminformation": "^5.27.8"
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.11.0",
+    "@eslint/js": "^9.34.0",
+    "@eslint/markdown": "^7.2.0",
+    "eslint": "^9.34.0",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2"
   }
 }
