@@ -13,10 +13,6 @@ Module.register("mmm-systemtemperature",{
 	  return ["mmm-systemtemperature.css", "font-awesome.css"];
 	},
 
-	getScripts: function () {
-	  return [`modules/${this.name}/node_modules/lodash/lodash.js`];
-	},
-
 	start: function() {
 		this.sendSocketNotification('CONFIG', this.config);
 		this.config.unit = this.config.unit && this.config.unit.toLowerCase();

@@ -6,27 +6,17 @@ It also allows to safely shutdown the Raspberry Pi using [MMM-Remote-Control](ht
 
 ## Installation
 
-In your terminal, go to your MagicMirror's Module folder:
+In your terminal, go to your MagicMirror's modules directory and clone this repository:
 
 ```bash
 cd ~/MagicMirror/modules
-```
-
-Clone this repository:
-```bash
 git clone https://github.com/KristjanESPERANTO/MMM-SystemTemperature
 ```
 
-Install dependencies:
-```bash
-npm install
-```
-
-Configure the module in your `config.js` file.
-
-## Using the module
+## Configuration
 
 To use this module, add it to the modules array in the `config/config.js` file:
+
 ```js
     {
       module: 'MMM-SystemTemperature',
@@ -38,10 +28,9 @@ To use this module, add it to the modules array in the `config/config.js` file:
     },
 ```
 
-## Configuration options
+### Configuration options
 
 The following properties can be configured:
-
 
 <table width="100%">
   <thead>

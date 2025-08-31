@@ -22,8 +22,5 @@
       "url": "https://github.com/KristjanEsperanto/"
     }
   ],
-  "license": "MIT",
-  "dependencies": {
-    "lodash": ">=4.17.19"
-  }
+  "license": "MIT"
 }
