@@ -1,14 +1,14 @@
-const systeminformation = require('systeminformation');
+const systeminformation = require("systeminformation");
 const Log = require("logger");
 const NodeHelper = require("node_helper");
 
 module.exports = NodeHelper.create({
-  start () {
+  start() {
     Log.log(`Starting module helper: ${this.name}`);
     this.intervalId = null;
   },
 
-  stop () {
+  stop() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;
@@ -16,7 +16,7 @@ module.exports = NodeHelper.create({
     }
   },
 
-  socketNotificationReceived (notification, payload) {
+  socketNotificationReceived(notification, payload) {
     if (notification === "CONFIG") {
       this.config = payload;
 
@@ -30,7 +30,9 @@ module.exports = NodeHelper.create({
         this.sendTemperature();
       }, this.config.updateInterval);
 
-      Log.log(`${this.name}: Temperature monitoring started (interval: ${this.config.updateInterval}ms)`);
+      Log.log(
+        `${this.name}: Temperature monitoring started (interval: ${this.config.updateInterval}ms)`
+      );
     }
   },
 
@@ -39,14 +41,22 @@ module.exports = NodeHelper.create({
       const data = await systeminformation.cpuTemperature();
 
       // Validate temperature data
-      if (!data || typeof data.main !== 'number' || data.main < -50 || data.main > 150) {
+      if (
+        !data ||
+        typeof data.main !== "number" ||
+        data.main < -50 ||
+        data.main > 150
+      ) {
         Log.warn(`${this.name}: Invalid temperature data received:`, data);
         return null;
       }
 
       return data.main;
     } catch (error) {
-      Log.error(`${this.name}: Error retrieving CPU temperature:`, error.message);
+      Log.error(
+        `${this.name}: Error retrieving CPU temperature:`,
+        error.message
+      );
       return null;
     }
   },

@@ -1,3 +1,5 @@
+/* global Module */
+
 Module.register("MMM-SystemTemperature", {
   defaults: {
     prependString: "System temperature: ",
@@ -19,17 +21,17 @@ Module.register("MMM-SystemTemperature", {
     }
   },
 
-  getStyles () {
+  getStyles() {
     return ["MMM-SystemTemperature.css", "font-awesome.css"];
   },
 
-  start () {
+  start() {
     this.sendSocketNotification("CONFIG", this.config);
     this.config.unit = this.config.unit && this.config.unit.toLowerCase();
     this.commandExecutor = this.getCommandExecutor();
   },
 
-  socketNotificationReceived (notification, payload) {
+  socketNotificationReceived(notification, payload) {
     if (notification === "TEMPERATURE") {
       this.temperature = parseFloat(payload) || null;
       this.stateConfig = this.getStateConfigByTemperature();
@@ -38,11 +40,12 @@ Module.register("MMM-SystemTemperature", {
     }
   },
 
-  getDom () {
+  getDom() {
     const wrapper = document.createElement("div");
 
     if (this.temperature !== null && !isNaN(this.temperature)) {
-      wrapper.innerHTML = this.config.prependString + this.getTemperatureLabel();
+      wrapper.innerHTML =
+        this.config.prependString + this.getTemperatureLabel();
       wrapper.style.color = this.stateConfig?.color || "";
     } else {
       wrapper.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${this.translate("LOADING")}`;
@@ -51,14 +54,14 @@ Module.register("MMM-SystemTemperature", {
     return wrapper;
   },
 
-  getTemperatureLabel () {
+  getTemperatureLabel() {
     return `<span class="temperatureLabel">
       <span class="temperatureValue">${this.getConvertedTemperature()}</span>
       <span class="temperatureUnit">${this.config.unit.toUpperCase()}</span>
     </span>`;
   },
 
-  getStateConfigByTemperature () {
+  getStateConfigByTemperature() {
     if (!this.temperature) return null;
 
     const { critical, warning } = this.config;
@@ -72,7 +75,7 @@ Module.register("MMM-SystemTemperature", {
     return null;
   },
 
-  getConvertedTemperature () {
+  getConvertedTemperature() {
     if (!this.temperature) return this.temperature;
 
     const unit = this.config.unit;
@@ -95,7 +98,7 @@ Module.register("MMM-SystemTemperature", {
     return Math.round(convertedTemp * 100) / 100;
   },
 
-  getCommandExecutor () {
+  getCommandExecutor() {
     const wait = this.config.updateInterval * 5;
     let timeoutId = null;
     const context = this;
@@ -107,9 +110,12 @@ Module.register("MMM-SystemTemperature", {
         timeoutId = null;
         const { stateConfig } = context;
         if (stateConfig?.command) {
-          context.sendNotification(stateConfig.command.notification, stateConfig.command.payload);
+          context.sendNotification(
+            stateConfig.command.notification,
+            stateConfig.command.payload
+          );
         }
       }, wait);
     };
-  },
+  }
 });
