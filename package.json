@@ -2,6 +2,7 @@
   "name": "mmm-systemtemperature",
   "version": "1.0.0",
   "description": "A MagicMirror² module that displays your processor temperature.",
+  "keywords": ["MagicMirror", "temperature", "system"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KristjanEsperanto/MMM-SystemTemperature"
