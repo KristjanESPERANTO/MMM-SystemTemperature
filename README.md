@@ -1,6 +1,6 @@
 # MMM-SystemTemperature
 
-This MagicMirror² module displays your system's CPU temperature on your mirror.
+This is a module for [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror) that displays your system's CPU temperature on your mirror.
 
 It also allows safe shutdown of your system using [MMM-Remote-Control](https://github.com/Jopyth/MMM-Remote-Control) if you configure it.
 
